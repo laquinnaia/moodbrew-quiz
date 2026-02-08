@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoodBrew Chiang Rai – Coffee Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #f5e7c6, #fff);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px 28px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin-bottom: 25px;
+    }
+
+    .question h3 {
+      margin-bottom: 10px;
+    }
+
+    .options label {
+      display: block;
+      background: #f7f7f7;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .options label:hover {
+      background: #ffe8b3;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #f4b400;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #e0a800;
+    }
+
+    .result {
+      display: none;
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      background: #fff6da;
+    }
+
+    .result h2 {
+      margin-top: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #f4b400;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>☕ MoodBrew Coffee Quiz</h1>
+    <p class="subtitle">Find the coffee that matches your mood & travel story</p>
+
+    <form id="quizForm">
+
+      <div class="question">
+        <h3>1. How do you feel today?</h3>
+        <div class="options">
+          <label><input type="radio" name="mood" value="adventure" required> 😄 Excited / Energetic</label>
+          <label><input type="radio" name="mood" value="relax"> 😌 Calm / Relaxed</label>
+          <label><input type="radio" name="mood" value="creative"> 💭 Thoughtful / Creative</label>
+          <label><input type="radio" name="mood" value="romantic"> 💕 Romantic / Emotional</label>
+          <label><input type="radio" name="mood" value="energy"> 😴 Tired / Need energy</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>2. What kind of traveler are you?</h3>
+        <div class="options">
+          <label><input type="radio" name="travel" value="adventure" required> 🏔 Adventure lover</label>
+          <label><input type="radio" name="travel" value="slow"> 🌿 Slow traveler</label>
+          <label><input type="radio" name="travel" value="creator"> 📸 Content creator</label>
+          <label><input type="radio" name="travel" value="city"> 🛍 City explorer</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>3. What flavors do you usually like?</h3>
+        <div class="options">
+          <label><input type="radio" name="flavor" value="strong" required> Strong and bold</label>
+          <label><input type="radio" name="flavor" value="smooth"> Smooth and sweet</label>
+          <label><input type="radio" name="flavor" value="floral"> Fruity or floral</label>
+          <label><input type="radio" name="flavor" value="light"> Light and refreshing</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>4. How do you drink coffee most often?</h3>
+        <div class="options">
+          <label><input type="radio" name="style" value="hot" required> Hot coffee</label>
+          <label><input type="radio" name="style" value="iced"> Iced coffee</label>
+          <label><input type="radio" name="style" value="coldbrew"> Cold brew</label>
+          <label><input type="radio" name="style" value="mix"> Coffee mixed with tea or fruit</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>5. What do you want from this drink right now?</h3>
+        <div class="options">
+          <label><input type="radio" name="goal" value="energy" required> More energy</label>
+          <label><input type="radio" name="goal" value="relax"> Relaxation</label>
+          <label><input type="radio" name="goal" value="inspire"> Inspiration</label>
+          <label><input type="radio" name="goal" value="memory"> A special memory from Chiang Rai</label>
+        </div>
+      </div>
+
+      <button type="submit">See My MoodBrew ☕</button>
+    </form>
+
+    <div class="result" id="resultBox"></div>
+
+  </div>
+
+  <script>
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const mood = document.querySelector('input[name="mood"]:checked').value;
+      const flavor = document.querySelector('input[name="flavor"]:checked').value;
+      const goal = document.querySelector('input[name="goal"]:checked').value;
+
+      let resultHTML = '';
+
+      if (mood === 'adventure' || flavor === 'strong' || goal === 'energy') {
+        resultHTML = `
+          <span class="tag">🔥 Adventure Mood</span>
+          <h2>Strong Doi Chang Espresso Blend</h2>
+          <p><b>Profile:</b> Dark roast, bold taste, high energy</p>
+          <p><b>Story:</b> Inspired by mountain adventures in Chiang Rai.</p>
+        `;
+      }
+
+      else if (mood === 'relax' || flavor === 'smooth' || goal === 'relax') {
+        resultHTML = `
+          <span class="tag">🌿 Relax Mood</span>
+          <h2>Honey Cold Brew</h2>
+          <p><b>Profile:</b> Smooth, lightly sweet, easy to drink</p>
+          <p><b>Story:</b> A slow and peaceful Chiang Rai afternoon.</p>
+        `;
+      }
+
+      else if (mood === 'romantic' || flavor === 'floral' || goal === 'memory') {
+        resultHTML = `
+          <span class="tag">💕 Romantic Mood</span>
+          <h2>Floral Tea–Coffee Fusion</h2>
+          <p><b>Profile:</b> Light roast, floral aroma, elegant taste</p>
+          <p><b>Story:</b> A gentle memory of Chiang Rai culture and art.</p>
+        `;
+      }
+
+      else {
+        resultHTML = `
+          <span class="tag">💭 Creative Mood</span>
+          <h2>Fruity Single-Origin Pour Over</h2>
+          <p><b>Profile:</b> Bright acidity, fruity aroma</p>
+          <p><b>Story:</b> Made for focus, ideas, and inspiration.</p>
+        `;
+      }
+
+      const resultBox = document.getElementById('resultBox');
+      resultBox.innerHTML = resultHTML;
+      resultBox.style.display = 'block';
+      resultBox.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
